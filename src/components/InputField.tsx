@@ -7,6 +7,7 @@ interface InputFieldProps {
 function InputField({value, onChange}: InputFieldProps) {
     return <>
         <Input
+            height='50'
             width='auto'
             variant="filled"
             readOnly={true}
