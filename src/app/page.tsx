@@ -22,7 +22,7 @@ export default function Home() {
 
     return (
         <Center w='auto' h='750'>
-            <Card padding={4} margin='auto' width='750' height='auto'>
+            <Card padding={4} margin='auto' width='auto' height='auto'>
                 <InputField value={expression} onChange={setExpression}></InputField>
                 <Grid templateColumns='repeat(4, 1fr)' gap={3} margin={4}>
                     <CalculatorButtons OnClick={clickEvent}/>
