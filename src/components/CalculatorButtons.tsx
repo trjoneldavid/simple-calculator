@@ -19,7 +19,8 @@ function CalculatorButtons({OnClick}: CalculatorButtonProps){
                     <Button colorScheme='gray'
                             key={btn}
                             w='30%' h='10'
-                            onClick={() => OnClick(btn)}>
+                            onClick={() => OnClick(btn)}
+                    >
                         {btn}
                     </Button>
             )

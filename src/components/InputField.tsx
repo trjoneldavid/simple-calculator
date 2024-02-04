@@ -1,8 +1,11 @@
 import {Input} from '@chakra-ui/react'
+
 interface InputFieldProps {
     value: string;
     onChange: (value: string) => void;
 }
+
+
 
 function InputField({value, onChange}: InputFieldProps) {
     return <>
