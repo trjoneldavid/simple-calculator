@@ -11,7 +11,7 @@ export default function Calculator() {
     const clickEvent = useCallback((value: string) => {
 
         function isOperator(String: string) {
-            return /[+\-*/^]/.test(String);
+            return /[+\-*/^.]/.test(String);
         }
 
         if (value === '=') {
