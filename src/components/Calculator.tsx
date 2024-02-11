@@ -18,7 +18,7 @@ export default function Calculator() {
         } else if (value === 'DEL') {
             setExpression(expression.toString().slice(0, -1))
         } else if (!isNaN(Number(value)) || ['+', '-', '%', '/', '^', '*','.'].includes(value)) {
-            if (expression === '0') {
+            if (expression === '0' && (!isNaN(Number(value)))){
                 setExpression(value);
             } else {
                 setExpression((prev) => prev + value);
