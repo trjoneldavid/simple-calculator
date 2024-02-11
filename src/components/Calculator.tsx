@@ -64,7 +64,6 @@ export default function Calculator() {
                     // Append the new decimal point to the expression
                     return prev + value;
                 } else {
-                    // Otherwise, return the current expression
                     return prev;
                 }
             });
