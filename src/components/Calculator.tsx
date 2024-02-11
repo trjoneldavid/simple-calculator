@@ -11,7 +11,7 @@ export default function Calculator() {
     const clickEvent = useCallback((value: string) => {
 
         function isOperator(String: string) {
-            return /[+\-*/^.]/.test(String);
+            return /[+\-*/^]/.test(String);
         }
 
         if (value === '=') {
@@ -48,6 +48,27 @@ export default function Calculator() {
                 }
             });
         }
+
+        else if (value === '.') {
+            setExpression((prev) => {
+                const hasDecimal = /\./.test(prev);
+                const hasOperator = /[+\-*/^]/.test(prev);
+
+                // Split the expression into operands based on the operators
+                const operands = prev.split(/[+\-*/]/);
+                const lastOperand = operands[operands.length - 1];
+
+                // If the last operand doesn't contain a decimal point and there is no operator, or it's after an operator
+                if ((!hasDecimal && !hasOperator) || (hasOperator && !/\./.test(lastOperand))) {
+                    // Append the new decimal point to the expression
+                    return prev + value;
+                } else {
+                    // Otherwise, return the current expression
+                    return prev;
+                }
+            });
+        }
+
 
         else if (!isNaN(Number(value)) || ['+', '-', '/', '^', '*','.'].includes(value)) {
             //prevent population of leading 0s
