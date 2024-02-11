@@ -36,8 +36,12 @@ export default function Calculator() {
         //checks if there's consecutive operators
         else if (isOperator(value)) {
             setExpression((prev) => {
+                //checks if the last character is an operator
                 const lastCharIsOperator = isOperator(prev.charAt(prev.length - 1));
+
+                //Checks if both the last and latest value is an operator
                 if (lastCharIsOperator && isOperator(value)) {
+                    //if so replace the previous operator with the new one
                     return prev.slice(0, -1) + value;
                 } else {
                     return prev + value;
