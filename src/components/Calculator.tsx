@@ -15,9 +15,12 @@ export default function Calculator() {
         }
 
         if (value === '=') {
-            if (expression !== '') {
-                setExpression(evaluate(expression).toString());
+            try {
+                setExpression(evaluate(expression).toString())
+            }catch (error){
+                setExpression("Error")
             }
+
         } else if (value === 'AC') {
             setExpression('');
         } else if (value === 'DEL') {
@@ -52,11 +55,9 @@ export default function Calculator() {
         else if (value === '.') {
             setExpression((prev) => {
                 const hasDecimal = /\./.test(prev);
-                // Check if the expression contains an operator
                 const hasOperator = /[+\-*/^]/.test(prev);
-
                 // Split the expression into operands based on the operators
-                const operands = prev.split(/[+\-*/]/);
+                const operands = prev.split(/[+\-*/^]/);
                 const lastOperand = operands[operands.length - 1];
 
                 // If the last operand doesn't contain a decimal point and there is no operator, or it's after an operator
@@ -68,8 +69,6 @@ export default function Calculator() {
                 }
             });
         }
-
-
         else if (!isNaN(Number(value)) || ['+', '-', '/', '^', '*','.'].includes(value)) {
             //prevent population of leading 0s
             if (expression === '0' && (!isNaN(Number(value)))){
