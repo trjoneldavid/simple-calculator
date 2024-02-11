@@ -8,13 +8,12 @@ import ButtonType from "@/enums/ButtonType";
 
 export default function Calculator() {
     const [expression, setExpression] = useState("0");
-
-
-
     const clickEvent = useCallback((value: string) => {
+
         function isOperator(String: string) {
             return /[+\-*/^]/.test(String);
         }
+
         if (value === '=') {
             if (expression !== '') {
                 setExpression(evaluate(expression).toString());
@@ -24,6 +23,7 @@ export default function Calculator() {
         } else if (value === 'DEL') {
             setExpression(expression.toString().slice(0, -1))
         }
+
         else if(value === '~'){
             setExpression((prev) => {
                 if (prev.startsWith('-')) {
@@ -33,6 +33,7 @@ export default function Calculator() {
                 }
             });
         }
+        //checks if there's consecutive operators
         else if (isOperator(value)) {
             setExpression((prev) => {
                 const lastCharIsOperator = isOperator(prev.charAt(prev.length - 1));
@@ -43,7 +44,9 @@ export default function Calculator() {
                 }
             });
         }
+
         else if (!isNaN(Number(value)) || ['+', '-', '/', '^', '*','.'].includes(value)) {
+            //prevent population of leading 0s
             if (expression === '0' && (!isNaN(Number(value)))){
                 setExpression(value);
             } else {
