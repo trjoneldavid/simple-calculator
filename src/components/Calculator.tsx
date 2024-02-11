@@ -52,6 +52,7 @@ export default function Calculator() {
         else if (value === '.') {
             setExpression((prev) => {
                 const hasDecimal = /\./.test(prev);
+                // Check if the expression contains an operator
                 const hasOperator = /[+\-*/^]/.test(prev);
 
                 // Split the expression into operands based on the operators
