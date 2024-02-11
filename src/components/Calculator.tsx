@@ -1,9 +1,10 @@
 "use client"
-import { Card, Grid, Center } from '@chakra-ui/react';
+import { Card, Grid, Center, GridItem } from '@chakra-ui/react';
 import InputField from "@/components/InputField";
-import CalculatorButtons from "@/components/CalculatorButtons";
+import Handle from "@/components/CalculatorHandles";
 import { useEffect, useState, useCallback } from "react";
 import { evaluate } from 'mathjs';
+import ButtonType from "@/enums/ButtonType";
 
 export default function Calculator() {
     const [expression, setExpression] = useState("0");
@@ -17,7 +18,16 @@ export default function Calculator() {
             setExpression('');
         } else if (value === 'DEL') {
             setExpression(expression.toString().slice(0, -1))
-        } else if (!isNaN(Number(value)) || ['+', '-', '%', '/', '^', '*','.'].includes(value)) {
+        }
+        else if(value === '~'){
+            setExpression((prev) => {
+                if (prev.startsWith('-')) {
+                    return prev.substring(1);
+                } else {
+                    return '-' + prev;
+                }
+            });
+        }else if (!isNaN(Number(value)) || ['+', '-', '/', '^', '*','.'].includes(value)) {
             if (expression === '0' && (!isNaN(Number(value)))){
                 setExpression(value);
             } else {
@@ -48,10 +58,32 @@ export default function Calculator() {
 
     return (
         <Center w='auto' h='750' onKeyDown={(e)=>e.preventDefault()}>
-            <Card padding={4} margin='auto' width={250} height='auto' >
-                <InputField value={expression} onChange={setExpression}></InputField>
-                <Grid templateColumns='repeat(4, 1fr)' gap={3} margin={4}>
-                    <CalculatorButtons OnClick={clickEvent} />
+            <Card padding={4} margin='auto' width='15%' height='auto'>
+
+                <Grid templateColumns='repeat(4, 1fr)' gap={3} margin={1}>
+                    <GridItem colSpan={4}>
+                        <InputField value={expression} onChange={setExpression}></InputField>
+                    </GridItem>
+                    <Handle type={ButtonType.Primary} value='AC' label='AC' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='~' label='+/-' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='^' label='^' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='/' label='/' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='9' label='9' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='8' label='8' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='7' label='7' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='*' label='*' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='6' label='6' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='5' label='5' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='4' label='4' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='-' label='-' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='3' label='3' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='2' label='2' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='1' label='1' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='+' label='+' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='0' label='0' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='.' label='.' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Secondary} value='DEL' label='DEL' OnClick={clickEvent} />
+                    <Handle type={ButtonType.Primary} value='=' label='=' OnClick={clickEvent} />
                 </Grid>
             </Card>
         </Center>

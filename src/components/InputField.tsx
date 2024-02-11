@@ -8,16 +8,17 @@ interface InputFieldProps {
 
 
 function InputField({value, onChange}: InputFieldProps) {
-    return <>
+    return <div>
         <Input
             height='50'
-            width='auto'
-            variant="filled"
+            width='100%'
+            padding='5%'
+            variant='filled'
             readOnly={true}
             value={value}
             onChange={(e) => onChange(e.target.value)}
         />
-    </>
+    </div>
 }
 
 export default InputField;
