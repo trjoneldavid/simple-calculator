@@ -9,7 +9,12 @@ import ButtonType from "@/enums/ButtonType";
 export default function Calculator() {
     const [expression, setExpression] = useState("0");
 
+
+
     const clickEvent = useCallback((value: string) => {
+        function isOperator(String: string) {
+            return /[+\-*/^]/.test(String);
+        }
         if (value === '=') {
             if (expression !== '') {
                 setExpression(evaluate(expression).toString());
@@ -27,7 +32,18 @@ export default function Calculator() {
                     return '-' + prev;
                 }
             });
-        }else if (!isNaN(Number(value)) || ['+', '-', '/', '^', '*','.'].includes(value)) {
+        }
+        else if (isOperator(value)) {
+            setExpression((prev) => {
+                const lastCharIsOperator = isOperator(prev.charAt(prev.length - 1));
+                if (lastCharIsOperator && isOperator(value)) {
+                    return prev.slice(0, -1) + value;
+                } else {
+                    return prev + value;
+                }
+            });
+        }
+        else if (!isNaN(Number(value)) || ['+', '-', '/', '^', '*','.'].includes(value)) {
             if (expression === '0' && (!isNaN(Number(value)))){
                 setExpression(value);
             } else {
